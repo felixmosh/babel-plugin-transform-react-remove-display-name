@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`remove displayName should pass function component 1`] = `
+"export function FunctionalComponent() {
+  return /*#__PURE__*/React.createElement("div", null);
+}
+if (process.env.NODE_ENV !== "production") {
+  FunctionalComponent.displayName = 'FunctionalComponent';
+}"
+`;
+
+exports[`remove displayName should pass functional component 1`] = `
+"export const FunctionalComponent = () => {
+  return /*#__PURE__*/React.createElement("div", null);
+};
+if (process.env.NODE_ENV !== "production") {
+  FunctionalComponent.displayName = 'FunctionalComponent';
+}"
+`;
+
+exports[`remove displayName should pass not react function component 1`] = `
+"export function FunctionalComponent() {
+  return 2;
+}
+FunctionalComponent.displayName = 'FunctionalComponent';"
+`;
+
+exports[`remove displayName should pass object literal 1`] = `
+"const data = {};
+data.displayName = 'FunctionalComponent';"
+`;
+
+exports[`remove displayName should pass other property name 1`] = `
+"export const FunctionalComponent = () => {
+  return /*#__PURE__*/React.createElement("div", null);
+};
+FunctionalComponent.propTypes = 'FunctionalComponent';
+function FunctionComponent() {}
+FunctionComponent.propTypes = 'bla';"
+`;
+
+exports[`remove displayName should pass other property type 1`] = `
+"export const FunctionalComponent = () => {
+  return /*#__PURE__*/React.createElement("div", null);
+};
+FunctionalComponent.displayName = null;
+function FunctionComponent() {
+  return /*#__PURE__*/React.createElement("div", null);
+}
+FunctionComponent.displayName = {};"
+`;

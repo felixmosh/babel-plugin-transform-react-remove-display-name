@@ -44,11 +44,6 @@ export default function displayNameTransform({ template }: Babel): PluginObj {
       Program(path, state) {
         state.set(stateProp, new Set<string>());
       },
-      Class(path, state) {
-        if (!isReactComponent(path)) {
-          return;
-        }
-      },
       Function(path, state) {
         if (!isReactComponent(path)) {
           return;

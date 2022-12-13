@@ -1,5 +1,7 @@
 import * as t from '@babel/types';
 
+// Taken from https://github.com/layershifter/babel-plugin-transform-react-handled-props/blob/2ec5afc98d5436d8cda78f10454879df64e0204c/src/util/isReactComponent.js#L4
+
 function containsJSX(path: any) {
   if (t.isJSXElement(path)) return true;
   let containJSX;

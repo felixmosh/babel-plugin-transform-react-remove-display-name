@@ -1,5 +1,5 @@
-export function FunctionalComponent() {
+export function FunctionComponent() {
   return <div />;
 }
 
-FunctionalComponent.displayName = 'FunctionalComponent';
+FunctionComponent.displayName = 'FunctionComponent';

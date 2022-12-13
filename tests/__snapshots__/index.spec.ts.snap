@@ -1,11 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`remove displayName should pass exotic component 1`] = `
+"export const ForwardRefComponent = React.forwardRef(() => {
+  return /*#__PURE__*/React.createElement("div", null);
+});
+if (process.env.NODE_ENV !== "production") {
+  ForwardRefComponent.displayName = 'ForwardRefComponent';
+}
+export const MemoComponent = React.memo(() => {
+  return /*#__PURE__*/React.createElement("div", null);
+});
+if (process.env.NODE_ENV !== "production") {
+  MemoComponent.displayName = 'MemoComponent';
+}"
+`;
+
 exports[`remove displayName should pass function component 1`] = `
-"export function FunctionalComponent() {
+"export function FunctionComponent() {
   return /*#__PURE__*/React.createElement("div", null);
 }
 if (process.env.NODE_ENV !== "production") {
-  FunctionalComponent.displayName = 'FunctionalComponent';
+  FunctionComponent.displayName = 'FunctionComponent';
 }"
 `;
 
@@ -19,10 +34,10 @@ if (process.env.NODE_ENV !== "production") {
 `;
 
 exports[`remove displayName should pass not react function component 1`] = `
-"export function FunctionalComponent() {
+"export function notFunctionalComponent() {
   return 2;
 }
-FunctionalComponent.displayName = 'FunctionalComponent';"
+notFunctionalComponent.displayName = 'FunctionalComponent';"
 `;
 
 exports[`remove displayName should pass object literal 1`] = `

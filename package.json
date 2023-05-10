@@ -1,7 +1,7 @@
 {
   "name": "babel-plugin-transform-react-remove-display-name",
   "description": "Make React component `displayName` property available only in none production environment during the build",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "lib/index.js",
   "author": "felixmosh",
   "license": "MIT",

@@ -84,7 +84,6 @@ export default function displayNameTransform({ template }: Babel): PluginObj {
         }
 
         if (reactFunctionName) {
-          console.log({ reactFunctionName });
           const ReactComponentsSet = state.get(stateProp);
           ReactComponentsSet.add(reactFunctionName);
         }

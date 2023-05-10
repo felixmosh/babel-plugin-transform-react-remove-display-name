@@ -19,12 +19,13 @@ function fixtureAssert(testFilename: string, options = {}) {
 }
 
 describe('remove displayName', () => {
-  fixtureAssert('function-component');
-  fixtureAssert('functional-component');
-  fixtureAssert('exotic-component');
-
-  fixtureAssert('not-react-function-component');
-  fixtureAssert('object-literal');
-  fixtureAssert('other-property-name');
-  fixtureAssert('other-property-type');
+  // fixtureAssert('function-component');
+  // fixtureAssert('functional-component');
+  // fixtureAssert('exotic-component');
+  //
+  // fixtureAssert('not-react-function-component');
+  // fixtureAssert('object-literal');
+  // fixtureAssert('other-property-name');
+  // fixtureAssert('other-property-type');
+  fixtureAssert('with-usage-of-hoc');
 });

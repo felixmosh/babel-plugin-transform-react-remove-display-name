@@ -1,66 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`remove displayName should pass exotic component 1`] = `
-"export const ForwardRefComponent = React.forwardRef(() => {
-  return /*#__PURE__*/React.createElement("div", null);
-});
-if (process.env.NODE_ENV !== "production") {
-  ForwardRefComponent.displayName = 'ForwardRefComponent';
-}
-export const MemoComponent = React.memo(() => {
-  return /*#__PURE__*/React.createElement("div", null);
-});
-if (process.env.NODE_ENV !== "production") {
-  MemoComponent.displayName = 'MemoComponent';
-}"
-`;
-
-exports[`remove displayName should pass function component 1`] = `
-"export function FunctionComponent() {
-  return /*#__PURE__*/React.createElement("div", null);
-}
-if (process.env.NODE_ENV !== "production") {
-  FunctionComponent.displayName = 'FunctionComponent';
-}"
-`;
-
-exports[`remove displayName should pass functional component 1`] = `
+exports[`remove displayName should pass with usage of hoc 1`] = `
 "export const FunctionalComponent = () => {
   return /*#__PURE__*/React.createElement("div", null);
 };
 if (process.env.NODE_ENV !== "production") {
   FunctionalComponent.displayName = 'FunctionalComponent';
-}"
-`;
-
-exports[`remove displayName should pass not react function component 1`] = `
-"export function notFunctionalComponent() {
-  return 2;
 }
-notFunctionalComponent.displayName = 'FunctionalComponent';"
-`;
-
-exports[`remove displayName should pass object literal 1`] = `
-"const data = {};
-data.displayName = 'FunctionalComponent';"
-`;
-
-exports[`remove displayName should pass other property name 1`] = `
-"export const FunctionalComponent = () => {
-  return /*#__PURE__*/React.createElement("div", null);
-};
-FunctionalComponent.propTypes = 'FunctionalComponent';
-function FunctionComponent() {}
-FunctionComponent.propTypes = 'bla';"
-`;
-
-exports[`remove displayName should pass other property type 1`] = `
-"export const FunctionalComponent = () => {
-  return /*#__PURE__*/React.createElement("div", null);
-};
-FunctionalComponent.displayName = null;
 function FunctionComponent() {
   return /*#__PURE__*/React.createElement("div", null);
 }
-FunctionComponent.displayName = {};"
+if (process.env.NODE_ENV !== "production") {
+  FunctionComponent.displayName = 'FunctionComponent';
+}
+const withData = component => {
+  return component;
+};
+const withNested = withData;
+const otherFunc = withData;
+const WithHOCFunctional = withData(FunctionalComponent);
+if (process.env.NODE_ENV !== "production") {
+  WithHOCFunctional.displayName = 'WithHOCFunctional';
+}
+const WithHOCFunctionComponent = withData(withNested(FunctionalComponent));
+if (process.env.NODE_ENV !== "production") {
+  WithHOCFunctionComponent.displayName = 'WithHOCFunctionComponent';
+}
+const NoneFunctionComponent = otherFunc(FunctionalComponent);
+NoneFunctionComponent.displayName = 'NoneFunctionComponent';
+const noneUppercaseVarFunctionComponent = withData(FunctionalComponent);
+noneUppercaseVarFunctionComponent.displayName = 'noneUppercaseVarFunctionComponent';"
 `;

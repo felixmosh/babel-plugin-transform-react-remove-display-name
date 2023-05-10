@@ -1,10 +1,12 @@
 import type * as BabelCoreNamespace from '@babel/core';
 import type { PluginObj } from '@babel/core';
 import * as t from '@babel/types';
+import { CallExpression } from '@babel/types';
 import { isReactComponent } from './utils/isReactComponent';
 
 export type Babel = typeof BabelCoreNamespace;
 const stateProp = 'ReactComponentsSet';
+
 function isValidLeftSide(node: t.LVal) {
   return (
     t.isMemberExpression(node) &&
@@ -18,15 +20,27 @@ function isValidRightSide(node: t.Expression) {
 }
 
 function isExistsReactComponent(node: t.LVal, reactComponentsSet: Set<string>) {
-  if (
+  return (
     t.isMemberExpression(node) &&
     t.isIdentifier(node.object) &&
     reactComponentsSet.has(node.object.name)
-  ) {
-    return true;
-  }
+  );
+}
 
-  return false;
+function isValidHoc(node: CallExpression, reactComponentsSet: Set<string>): boolean {
+  return (
+    t.isIdentifier(node.callee) &&
+    node.callee.name.startsWith('with') &&
+    node.arguments.some((arg) => {
+      if (t.isIdentifier(arg) && reactComponentsSet.has(arg.name)) {
+        return true;
+      } else if (t.isCallExpression(arg)) {
+        return isValidHoc(arg, reactComponentsSet);
+      }
+
+      return false;
+    })
+  );
 }
 
 export default function displayNameTransform({ template }: Babel): PluginObj {
@@ -70,9 +84,24 @@ export default function displayNameTransform({ template }: Babel): PluginObj {
         }
 
         if (reactFunctionName) {
+          console.log({ reactFunctionName });
           const ReactComponentsSet = state.get(stateProp);
           ReactComponentsSet.add(reactFunctionName);
         }
+      },
+      VariableDeclarator(path, state) {
+        const reactComponentsSet = state.get(stateProp) as Set<string>;
+
+        if (
+          !t.isIdentifier(path.node.id) ||
+          path.node.id.name.charAt(0) !== path.node.id.name.charAt(0).toUpperCase() ||
+          !t.isCallExpression(path.node.init) ||
+          !isValidHoc(path.node.init, reactComponentsSet)
+        ) {
+          return;
+        }
+
+        reactComponentsSet.add(path.node.id.name);
       },
       AssignmentExpression(path, state) {
         const { node } = path;
